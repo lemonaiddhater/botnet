@@ -814,8 +814,8 @@ class C2:
         print(f"""
   {T.get('p')}╔══════════════════════════════════════╗{R}
   {T.get('p')}║{R}  {T.get('w')}[A]{R} Launch Attack                   {T.get('p')}║{R}
-  {T.get('p')}║{R}  {T.get('w')}[B]{R} Bots ({len(self.bots)})                     {T.get('p')}║{R}
-  {T.get('p')}║{R}  {T.get('w')}[M]{R} Methods ({len(ALL_METHODS)})                   {T.get('p')}║{R}
+  {T.get('p')}║{R}  {T.get('w')}[B]{R} Bots ({len(self.bots)})                     {T.get('p')} ║{R}
+  {T.get('p')} ║{R}  {T.get('w')}[M]{R} Methods ({len(ALL_METHODS)})                   {T.get('p')}║{R}
   {T.get('p')}║{R}  {T.get('w')}[S]{R} Settings                        {T.get('p')}║{R}
   {T.get('p')}║{R}  {T.get('w')}[H]{R} Help                            {T.get('p')}║{R}
   {T.get('p')}║{R}  {T.get('w')}[Q]{R} Quit                            {T.get('p')}║{R}
