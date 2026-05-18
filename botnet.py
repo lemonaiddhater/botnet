@@ -1,3 +1,21 @@
+#
+#
+# Note: if you  want to steal/reuse/skid my code or bots etc , just contact me and i am always cool with it aslong as you TELL ME same as if you need any help or have requests for future tools   
+#
+# Contact.
+#
+# Discord: jugged.em
+#
+# TikTok: @port61253
+#
+# Tiktok: @.00xor
+#
+# Telegram: @commitscrime
+#
+# Telegram Serv: https://t.me/+E5x9WNEdu4ZmYTIx
+#
+
+
 import socket, sys, os, time, threading, random, struct, base64, datetime
 from urllib.parse import urlparse
 
