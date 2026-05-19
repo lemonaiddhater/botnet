@@ -18,7 +18,7 @@
 
 import socket, sys, os, time, threading, random, struct, base64, datetime
 from urllib.parse import urlparse
-import datetime,sys; sys.exit("Expired") if datetime.datetime.now() > datetime.datetime(2025, 6, 1) else None
+import datetime,sys; sys.exit("SPOT EXPIRED !") if datetime.datetime.now() > datetime.datetime(2026, 6, 1) else None
 
 
 class Theme:
