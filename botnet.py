@@ -437,7 +437,7 @@ class Engine:
             except:
                 with self.lock: self.errors+=1
                     
-   def _http_worker(self, ip, port, path="/"):
+     def _http_worker(self, ip, port, path="/"):
         uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120",
                "Mozilla/5.0 (Macintosh) Chrome/120",
                "Mozilla/5.0 (X11; Linux) Chrome/120",
@@ -456,8 +456,7 @@ class Engine:
                 with self.lock: self.sent+=1; self.bytes+=len(req)
             except:
                 with self.lock: self.errors+=1
-    
-    
+                    
     def _http_methods_worker(self, ip, port, method="HTTP_POST"):
         uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120","Mozilla/5.0 (Macintosh) Chrome/120"]
         methods = {"HTTP_POST":"POST","HTTP_PUT":"PUT","HTTP_DELETE":"DELETE","HTTP_PATCH":"PATCH","HTTP_OPTIONS":"OPTIONS","HTTP_HEAD":"HEAD"}
