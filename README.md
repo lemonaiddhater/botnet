@@ -68,6 +68,9 @@ python botnet.py
 - Python 3.7+
 - requests 
 
+
+## Attack methods etc
+
 | Layer | Method          | Description                          | Plans                                      |
 | ----- | --------------- | ------------------------------------ | ------------------------------------------ |
 | L4    | ACK_FLOOD       | Floods target with ACK packets       | BASIC, PREMIUM, ENTERPRISE, LIFETIME       |
