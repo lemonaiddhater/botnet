@@ -989,9 +989,9 @@ class C2:
   {T.get('d')}!http https://example.com 30{R}
   
   {T.get('w')}Notes:{R}
-  {T.get('d')}• {R}
-  {T.get('d')}• {R}
-  {T.get('d')}• {R}
+  {T.get('d')}• NO ATTACKING: .gov , .edu , .mil , (sweden,russia,canada)   {R}
+  {T.get('d')}• Attack with cuation ! you are not invisible.  {R}
+  {T.get('d')}• Join TG or follow on TT for updates and uptimes. {R}
 """)
                 input(f"  {T.get('d')}Press ENTER...{R}")
             elif cmd.upper() == "Q": self.running = False
