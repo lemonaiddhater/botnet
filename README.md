@@ -11,7 +11,8 @@ cool botnet tool
 NOTE: very few spots left and this tool is only free/public for a LIMITED TIME.
 for more details Contact below .
 
-<img width="845" height="432" alt="Screenshot 2026-05-17 12 19 20 PM" src="https://github.com/user-attachments/assets/89b83fb7-d3ad-4c13-92f2-693af248a279" />
+<img width="596" height="360" alt="Screenshot 2026-05-23 8 09 32 PM" src="https://github.com/user-attachments/assets/dac4b04b-8a5f-4db9-b5ac-e895049d194a" />
+
 
 
 
