@@ -6,7 +6,7 @@
 #
 # Discord: jugged.em
 #
-# TikTok: @port61253
+# TikTok: @hitmyport53
 #
 # Tiktok: @.00xor
 #
@@ -19,7 +19,19 @@
 import socket, sys, os, time, threading, random, struct, base64, datetime
 from urllib.parse import urlparse
 import datetime,sys; sys.exit("SPOT EXPIRED !") if datetime.datetime.now() > datetime.datetime(2026, 12, 1) else None
-
+import hashlib, hmac, time
+k, s = "xor", "k"  
+h = hashlib.sha256(k.encode()).hexdigest()
+while (c := input("[1] Access Key  [2] Temp key  [3] Exit: ").strip()) != "3":
+ if c == "1":
+  if hashlib.sha256(input("Key: ").strip().encode()).hexdigest() == h: break
+  else: print("No"); exit()
+ elif c == "2":
+  t = hmac.new(s.encode(), f"{s}:{int(time.time()/30)}".encode(), hashlib.sha256).hexdigest()[:12]
+  print(f"Temp key ({t}) valid ~30s"); 
+  if hmac.compare_digest(input("Temp: ").strip(), t): break
+  else: print("No"); exit()
+else: exit()
 
 class Theme:
     def __init__(self):
@@ -981,6 +993,7 @@ class C2:
     {T.get('a')}!slow 192.168.1.1 80 300{R}
   {T.get('s')}!stop{R}       - Stop attack
   {T.get('s')}!theme{R}      - Change theme
+  {T.get('s')}!con{R}        - Change concurrents
   {T.get('s')}!history{R}    - View attack history 
   {T.get('s')}!status{R}     - Show status
   {T.get('s')}!exit{R}       - Exit
