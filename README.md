@@ -166,9 +166,9 @@ for more details Contact below .
 
 Discord: jugged.em
 
-TikTok: @port61253
+TikTok: @hitmyport53
 
-Tiktok: @.00xor
+Tiktok: @lolicake443
 
 Telegram: @commitscrime
 
